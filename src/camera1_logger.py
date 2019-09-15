@@ -50,8 +50,6 @@ def set_action(msg):
             else:
                 log_file.write('%d,%d,%s\n'%(current_frame,1,sounds[int(action[1])]))
                 action = sounds[int(action[1])]
-
-
     except CvBridgeError, e:
         print(e)
 
