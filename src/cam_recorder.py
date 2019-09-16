@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-
 import rospy
 from std_msgs.msg import String
 
@@ -75,7 +74,7 @@ def set_dir(data):
 def turn_on_cams(name):
     global cam1_subprocess,cam2_subprocess,dir
 
-    if writer_flag = True :
+    if writer_flag == True:
         if cam1_subprocess is None:
             print('Start recording cam1')
             cam1_subprocess = subprocess.Popen(["rosrun", "image_view","video_recorder",
