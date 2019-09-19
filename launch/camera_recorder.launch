@@ -1,0 +1,13 @@
+<launch>
+    <node name="cam1_recorder" pkg="image_view" type="video_recorder" output="screen">
+        <remap from="/image" to="/camera1/image_raw" />
+        <param name="filename" value="$(arg filename_cam1)" />
+        <param name="fps" value="30" />
+    </node>
+
+    <node name="cam2_recorder" pkg="image_view" type="video_recorder" output="screen">
+        <remap from="/image" to="/camera2/image_raw" />
+        <param name="filename" value="$(arg filename_cam2)" />
+        <param name="fps" value="30" />
+    </node>
+</launch>
