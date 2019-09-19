@@ -5,15 +5,15 @@
     <node name="audio_player" pkg="cabinet" type="audio_player.py" output="screen"/>
     <node name="cam_recorder" pkg="cabinet" type="cam_recorder.py" output="screen"/>
 
-    <node name="camera1" pkg="usb_cam" type="usb_cam_node" output="screen" >
-    <param name="video_device" value="/dev/video1" />
+    <node name="camera1" pkg="usb_cam" type="usb_cam_node">
+    <param name="video_device" value="/dev/video0" />
     <param name="pixel_format" value="yuyv" />
     <param name="camera_frame_id" value="camera1" />
     <param name="io_method" value="mmap"/>
     </node>
 
-    <node name="camera2" pkg="usb_cam" type="usb_cam_node" output="screen" >
-    <param name="video_device" value="/dev/video2" />
+    <node name="camera2" pkg="usb_cam" type="usb_cam_node" >
+    <param name="video_device" value="/dev/video1" />
     <param name="pixel_format" value="yuyv" />
     <param name="camera_frame_id" value="camera2" />
     <param name="io_method" value="mmap"/>
