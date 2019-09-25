@@ -30,17 +30,6 @@ def intro():
 def outro():
     arduino_client('4')
 
-# def arduino_commands(data):
-#     # print("get here")
-#     if(int(data.data) == 90 ):   # trun lightwheel on
-#         turnON()
-#     elif(int(data.data) == 91 ):  # trun lightwheel off
-#         turnOFF()
-#     elif(int(data.data) == 92 ):  # trun LED on and open curtain
-#         arduino_client('7')
-#     elif(int(data.data) == 93 ):  # trun LED off and close curtain
-#         arduino_client('8')
-
 
 def auto_mode():
     
@@ -80,7 +69,6 @@ def curtain_handler(data):
 
 def ros_init():
     rospy.init_node('arduino')
-    # rospy.Subscriber('web/arduino_commands', String, arduino_commands)
     rospy.Subscriber('web/stage', String, curtain_handler)
     rospy.Subscriber('web/wheel_status', String, lightwheel)
     rospy.spin()
