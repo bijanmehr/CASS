@@ -5,12 +5,23 @@ import time
 import threading
 from cabinet.srv import *
 from std_msgs.msg import String
-
+import pygame
 
 
 # play_sound = None
 # stop_sound = None
 
+
+def play_sound(data):
+    pygame.mixer.Sound.play(pygame.mixer.Sound(data.data))
+
+def stop_sound(data):
+    pygame.mixer.stop()
+
+def pygame_init():
+    pygame.mixer.init()
+    if pygame.mixer.get_init() is None:
+        print("mixer initialization is NOT successful")
 
 def parrot_client(command):
     rospy.wait_for_service('serial_handler/parrot')
@@ -48,18 +59,20 @@ def open_eye(pwm = 130):
 def close_eye(pwm = 105):
     res = parrot_client('G5 S%d'%pwm)
 
-
+def talk():
+    mouth(240)
+    time.sleep(0.3)
+    mouth(0)
+    time.sleep(0.3)
+    mouth(240)
+    time.sleep(0.3)
+    mouth(0)
 
 def parrot_voice_commands(data):
     # TODO: frequency, test on parrot
     # play_sound.publish(data.data)
-    mouth(240)
-    time.sleep(0.3)
-    mouth(0)
-    time.sleep(0.3)
-    mouth(240)
-    time.sleep(0.3)
-    mouth(0)
+    play_sound(data)
+    talk()
 
 def parrot_commands(data):
     if(int(data.data) == 0 ):   # dance
@@ -74,28 +87,36 @@ def parrot_commands(data):
         open_eye()
     elif(int(data.data) == 5 ): # close eye
         close_eye()
-    elif(int(data.data) == 6 ): # close eye
-        auto_mode(5,0.6)
 
+# TODO chk auto
+def auto_mode():
+    #slm
+    #khobi?
+    dance()
+    #esm man abi e
+    #bia pish man
+    dance()
+    #mikham barat ahang pakhsh konm
+    dance()
+    dance()
+    dance()
+    #ahang o dos dashti?
+    
 
-# # TODO test auto mode
-def auto_mode(num = 3,time_step = 0.5):
-    i = 0
-    while i <= num:
-        blink()
-        time.sleep(time_step)
-        dance()
-        time.sleep(time_step)
-        i = i+1
+def auto(data):
+    if(data.data == "auto"):
+        auto_mode()
 
 def ros_init():
     rospy.init_node('parrot', log_level=rospy.DEBUG)
     # play_sound = rospy.Publisher('audio_player/play_sound', String, queue_size=10)
     # stop_sound = rospy.Publisher('audio_player/stop_sound', String, queue_size=10)
     rospy.Subscriber('web/parrot_commands', String, parrot_commands, queue_size=10)
+    rospy.Subscriber('web/parrot_command_type', String, auto, queue_size=10)
     rospy.Subscriber("web/parrot_voice_commands", String, parrot_voice_commands, queue_size=10)
     rospy.spin()
 
 
 if __name__ == "__main__":
         ros_init()
+        pygame_init()

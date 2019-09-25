@@ -58,7 +58,7 @@ def handle_arduino_connection(req):
 def handel_connections():
     rospy.init_node('serial_handler')
     parrot_service = rospy.Service('serial_handler/parrot', parrot, handle_parrot_connection)
-    # parrot_service = rospy.Service('usb_handler/arduino', Arduino, handle_arduino_connection)
+    arduino_service = rospy.Service('serial_handler/arduino', Arduino, handle_arduino_connection)
     rospy.spin()
 
 if __name__ == "__main__":

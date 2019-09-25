@@ -117,6 +117,8 @@ def turn_off_cams():
         print("stop recording")
         # cam_subprocess.terminate()
         os.system("rosnode kill /cam1_recorder /cam2_recorder")
+        cam1_subprocess = None
+        cam2_subprocess = None
         # os.killpg(os.getpgid(cam_subprocess.pid), signal.SIGTERM)
         # os.killpg(os.getpgid(cam_subprocess.pid), signal.SIGTERM)
 
