@@ -25,10 +25,10 @@ def turnOFF():
     arduino_client('6')
 
 def intro():
-    arduino_client('3')
+    arduino_client('1')
 
 def outro():
-    arduino_client('4')
+    arduino_client('2')
 
 
 def auto_mode():
