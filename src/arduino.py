@@ -7,7 +7,6 @@ from cabinet.srv import *
 from std_msgs.msg import String
 
 
-
 def arduino_client(command):
     rospy.wait_for_service('serial_handler/arduino')
     try:
@@ -31,20 +30,28 @@ def outro():
     arduino_client('2')
 
 
+t1=threading.Timer(60, turnOFF)
+t2=threading.Timer(80, turnON)
+t3=threading.Timer(140, turnOFF)
+t4=threading.Timer(160, turnON)
+t5=threading.Timer(220, turnOFF)
+
 def auto_mode():
     
+    global t1,t2,t3,t4,t5
     turnOFF()
     time.sleep(0.1)
     turnON()
-    threading.Timer(60, turnOFF).start()
-    threading.Timer(80, turnON).start()
-    threading.Timer(140, turnOFF).start()
-    threading.Timer(160, turnON).start()
-    threading.Timer(220, turnOFF).start()
+    t1.start()
+    t2.start()
+    t3.start()
+    t4.start()
+    t5.start()
 
 
 
 def lightwheel(data):
+    global t1,t2,t3,t4,t5
     print(data.data)
     if data.data == 'True':
         # turn lightwheel on
@@ -60,10 +67,22 @@ def lightwheel(data):
         # turn lightwheel off
         turnOFF()
         print("OFF")
+        t1.cancel()
+        t2.cancel()
+        t3.cancel()
+        t4.cancel()
+        t5.cancel()
 
 def curtain_handler(data):
+    global t1,t2,t3,t4,t5
     if(data.data == "start_parrot"):
         intro()
+        threading.Timer(0.1, turnOFF).start()
+        t1.cancel()
+        t2.cancel()
+        t3.cancel()
+        t4.cancel()
+        t5.cancel()
     elif(data.data == "stop_test"):
         outro()
 
