@@ -11,8 +11,6 @@ parrot_serial = None
 arduino_serial = None
 baudrates = 115200
 
-# ParrotResponse = ''
-
 
 def Search_for_parrot_and_arduino_serial_port():
     global parrot_serial,arduino_serial
