@@ -11,7 +11,7 @@ parrot_serial = None
 arduino_serial = None
 baudrates = 115200
 
-ParrotResponse = ''
+# ParrotResponse = ''
 
 
 def Search_for_parrot_and_arduino_serial_port():
@@ -20,7 +20,8 @@ def Search_for_parrot_and_arduino_serial_port():
     for port in available_ports:
         test_serial = serial.Serial(
             port = port[0],
-            baudrate = baudrates
+            baudrate = baudrates,
+            timeout = 10
         )
         test_serial.close()
         test_serial.open()
@@ -46,14 +47,16 @@ def Search_for_parrot_and_arduino_serial_port():
 
 def handle_parrot_connection(req):
     parrot_serial.write(req.command)
-    print(req)
+    # print(req)
     # return ParrotResponse(parrot_serial.readline().decode('utf-8'))
+    return parrot_serial.readline()
 
 
 def handle_arduino_connection(req):
     arduino_serial.write(req.command)
-    return ArduinoResponse("sent")
+    # return ArduinoResponse("sent")
     # return ArduinoResponse(arduino_serial.readline().decode('utf-8'))
+    return arduino_serial.readline()
 
 def handel_connections():
     rospy.init_node('serial_handler')
