@@ -29,7 +29,7 @@ def intro():
 def outro():
     arduino_client('2')
 
-
+#auto mode scenario
 t1=threading.Timer(60, turnOFF)
 t2=threading.Timer(80, turnON)
 t3=threading.Timer(140, turnOFF)
