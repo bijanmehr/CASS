@@ -1,4 +1,5 @@
-pyserial
-pygame
-opencv
-cv_bridge
+python2 pyserial
+python2 pygame
+python2 opencv
+ros kinetic cv_bridge
+ros kinetic usb_cam
